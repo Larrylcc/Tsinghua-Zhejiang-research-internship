@@ -1,3 +1,5 @@
+#用于提取“认知能力”类型测评
+#此文件为demo版，与正式版相比没有提取出机构信息和测评老师的信息。
 import os
 import pandas as pd
 import docx
