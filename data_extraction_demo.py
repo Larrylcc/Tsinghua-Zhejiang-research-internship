@@ -5,7 +5,7 @@ from docx import Document
 from docx.table import Table
 
 # 指定word文件所在目录和excel输出文件路径
-word_directory = '/Users/larry/Desktop/长三院数据_废版/data/ShangHai_YiNuo/认知能力'
+word_directory = 'yourPath'
 output_excel = 'output.xlsx'
 
 # 初始化一个空的 DataFrame 用于存储结果
