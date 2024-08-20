@@ -1,3 +1,4 @@
+#此文件用于提取“认知能力”类型的测评。
 import os
 import pandas as pd
 from docx import Document
