@@ -12,38 +12,37 @@ output_excel = 'output.xlsx'
 
 # 初始化一个空的 DataFrame 用于存储结果
 columns = ['文件名', '测评老师', '姓名', '性别', '出生年月', '测试日期',
-           '认知能力_得分', '认知能力_结果',
-           '感知觉_得分', '感知觉_结果',
-           '注意力_得分', '注意力_结果',
-           '观察力_得分', '观察力_结果',
-           '辨识能力_得分', '辨识能力_结果',
-           '排序能力_得分', '排序能力_结果',
-           '联想能力_得分', '联想能力_结果']
+           '认知能力_得分', '认知能力_总分', '认知能力_结果',
+           '感知觉_得分', '感知觉_总分', '感知觉_结果',
+           '注意力_得分', '注意力_总分', '注意力_结果',
+           '观察力_得分', '观察力_总分', '观察力_结果',
+           '辨识能力_得分', '辨识能力_总分', '辨识能力_结果',
+           '排序能力_得分', '排序能力_总分', '排序能力_结果',
+           '联想能力_得分', '联想能力_总分', '联想能力_结果']
 data = []
+
+def split_score(score):
+    if '/' in score:
+        return score.split('/')
+    return [score, '']
 
 def extract_info_from_table(table: Table):
     info = {}
     info['测评老师'] = table.cell(0, 0).text.split('：')[-1].strip()
-    info['姓名'] = table.cell(0, 5).text
+    info['姓名'] = table.cell(0, 1).text
     info['性别'] = table.cell(0, 5).text
     info['出生年月'] = table.cell(0, 10).text
     info['测试日期'] = table.cell(1, 10).text
 
-    # 提取测评结果
-    info['认知能力_得分'] = table.cell(3, 1).text
-    info['认知能力_结果'] = table.cell(4, 1).text
-    info['感知觉_得分'] = table.cell(3, 3).text
-    info['感知觉_结果'] = table.cell(4, 3).text
-    info['注意力_得分'] = table.cell(3, 4).text
-    info['注意力_结果'] = table.cell(4, 4).text
-    info['观察力_得分'] = table.cell(3, 5).text
-    info['观察力_结果'] = table.cell(4, 5).text
-    info['辨识能力_得分'] = table.cell(3, 8).text
-    info['辨识能力_结果'] = table.cell(4, 8).text
-    info['排序能力_得分'] = table.cell(3, 9).text
-    info['排序能力_结果'] = table.cell(4, 9).text
-    info['联想能力_得分'] = table.cell(3, 11).text
-    info['联想能力_结果'] = table.cell(4, 11).text
+    # 提取测评结果并拆分得分
+    score_fields = ['认知能力', '感知觉', '注意力', '观察力', '辨识能力', '排序能力', '联想能力']
+    cell_positions = [(3, 1), (3, 3), (3, 4), (3, 5), (3, 8), (3, 9), (3, 11)]
+
+    for field, pos in zip(score_fields, cell_positions):
+        score1, score2 = split_score(table.cell(*pos).text)
+        info[f'{field}_得分'] = score1
+        info[f'{field}_总分'] = score2
+        info[f'{field}_结果'] = table.cell(pos[0]+1, pos[1]).text
 
     return info
 
