@@ -1,10 +1,11 @@
+#此文件用于提取“言语构音”类型的测评。
 import os
 import pandas as pd
 from docx import Document
 from docx.table import Table
 
 # 指定 word 文件所在目录和 excel 输出文件路径
-word_directory = 'D:\桌面\长三院数据\data\ShangHai_YiNuo\言语构音'
+word_directory = 'yourPath'
 output_excel = 'output.xlsx'
 
 # 初始化一个空的 DataFrame 用于存储结果
