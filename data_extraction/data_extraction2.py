@@ -6,7 +6,7 @@ from docx.table import Table
 
 # 指定 word 文件所在目录和 excel 输出文件路径
 word_directory = 'yourPath'
-output_excel = 'output.xlsx'
+output_excel = 'yourPath\\output1.xlsx'  # 指定完整路径
 
 # 初始化一个空的 DataFrame 用于存储结果
 columns = ['文件名', '机构信息', '测评老师', '姓名', '性别', '出生年月', '测试日期',
@@ -41,7 +41,6 @@ def extract_info_from_table(table: Table):
             info[target_sound] = 0
         else:
             info[target_sound] = None
-        #info[target_sound] = 1 if result == '正确' else 0
 
     return info
 
